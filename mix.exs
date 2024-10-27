@@ -8,6 +8,12 @@ defmodule Hello.MixProject do
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps()
+      # releases: [
+      #   demo: [
+      #     include_executables_for: [:unix],
+      #     applications: [runtime_tools: :permanent]
+      #   ]
+      # ]
     ]
   end
 

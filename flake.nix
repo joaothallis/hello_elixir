@@ -26,12 +26,8 @@
           let
             version = "0.1.0";
             src = ./.;
-            mixFodDeps = with pkgs; import ./mix_deps.nix { inherit lib beamPackages; };
-            # mixFodDeps = erlangPackages.fetchMixDeps {
-            #   inherit version src;
-            #   pname = "ri-elixir-deps";
-            #   sha256 = "sha256-8aSihmaxNOadMl7+0y38B+9ahh0zNowScwvGe0npdPw=";
-            # };
+            mixNixDeps = with pkgs; with beamPackages;import ./mix_deps.nix { inherit lib beamPackages; };
+            # mixNixDeps = import ./deps.nix { inherit lib beamPackage; };
             translatedPlatform =
               {
                 aarch64-darwin = "macos-arm64";
@@ -45,11 +41,11 @@
           rec {
             # inner expression
             default = erlangPackages.mixRelease {
-              inherit version src mixFodDeps;
-              pname = "ravensiris-web";
+              inherit version src mixNixDeps;
+              pname = "hello";
 
               preInstall = ''
-                ${elixir}/bin/mix release
+                ${elixir}/bin/mix release --no-deps-check
               '';
             };
           };
