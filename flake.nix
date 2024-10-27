@@ -13,7 +13,15 @@
       nixpkgs,
       flake-utils,
     }:
-    flake-utils.lib.eachDefaultSystem (
+    {
+      nixosConfigurations = {
+        ocean = nixpkgs.lib.nixosSystem {
+          inherit pkgs;
+          modules = [ (import ./configuration.nix) ];
+        };
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
