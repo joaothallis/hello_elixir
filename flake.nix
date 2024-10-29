@@ -17,7 +17,7 @@
       nixosConfigurations = {
         ocean = nixpkgs.lib.nixosSystem {
           inherit pkgs;
-          modules = [ (import ./configuration.nix) ];
+          modules = [ (import ./nixos/configuration.nix) ];
         };
       };
     }
